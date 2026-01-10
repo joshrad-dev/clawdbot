@@ -111,7 +111,6 @@ function editDistance(a: string, b: string): number {
 
   return prev[bLen] ?? Number.POSITIVE_INFINITY;
 }
-
 async function getFreePort(): Promise<number> {
   return await new Promise((resolve, reject) => {
     const srv = createServer();
@@ -485,7 +484,6 @@ describeLive("gateway live (dev agent, profile keys)", () => {
                 );
               }
             }
-
             // Regression: tool-call-only turn followed by a user message (OpenAI responses bug class).
             if (
               (model.provider === "openai" &&
