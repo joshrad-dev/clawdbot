@@ -38,7 +38,7 @@ Text + native (when enabled):
 - `/commands`
 - `/status` (show current status; includes a short usage line when available)
 - `/usage` (alias: `/status`)
-- `/config show|get|set|unset` (persist config to disk, owner-only)
+- `/config show|set|unset` (persist config to disk, owner-only)
 - `/debug show|set|unset|reset` (runtime overrides, owner-only)
 - `/cost on|off` (toggle per-response usage line)
 - `/stop`
@@ -91,7 +91,6 @@ Examples:
 ```
 /config show
 /config show messages.responsePrefix
-/config get messages.responsePrefix
 /config set messages.responsePrefix="[clawdbot]"
 /config unset messages.responsePrefix
 ```
