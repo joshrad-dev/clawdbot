@@ -2,9 +2,9 @@ import { note as clackNote } from "@clack/prompts";
 
 import type { ClawdbotConfig } from "../config/config.js";
 import { readProviderAllowFromStore } from "../pairing/pairing-store.js";
+import { resolveProviderDefaultAccountId } from "../providers/plugins/helpers.js";
 import { listProviderPlugins } from "../providers/plugins/index.js";
 import type { ProviderId } from "../providers/plugins/types.js";
-import { DEFAULT_ACCOUNT_ID } from "../routing/session-key.js";
 import { stylePromptTitle } from "../terminal/prompt-style.js";
 
 const note = (message: string, title?: string) =>
@@ -76,10 +76,11 @@ export async function noteSecurityWarnings(cfg: ClawdbotConfig) {
   for (const plugin of listProviderPlugins()) {
     if (!plugin.security) continue;
     const accountIds = plugin.config.listAccountIds(cfg);
-    const defaultAccountId =
-      plugin.config.defaultAccountId?.(cfg) ??
-      accountIds[0] ??
-      DEFAULT_ACCOUNT_ID;
+    const defaultAccountId = resolveProviderDefaultAccountId({
+      plugin,
+      cfg,
+      accountIds,
+    });
     const account = plugin.config.resolveAccount(cfg, defaultAccountId);
     const enabled = plugin.config.isEnabled
       ? plugin.config.isEnabled(account, cfg)
