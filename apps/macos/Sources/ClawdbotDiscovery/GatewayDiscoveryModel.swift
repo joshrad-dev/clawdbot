@@ -570,7 +570,7 @@ public final class GatewayDiscoveryModel {
             of: #"\s*-?\s*bridge$"#,
             with: "",
             options: .regularExpression)
-        return normalizeHostToken(strippedBridge)
+        return self.normalizeHostToken(strippedBridge)
     }
 }
 
