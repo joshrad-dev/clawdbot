@@ -234,6 +234,7 @@ function buildContextPruningExtension(params: {
   };
 }
 
+
 export type EmbeddedPiAgentMeta = {
   sessionId: string;
   provider: string;
@@ -959,7 +960,10 @@ export async function compactEmbeddedPiSession(params: {
           modelId,
           model,
         });
-        const additionalExtensionPaths = pruning.additionalExtensionPaths;
+        const additionalExtensionPaths = [
+          resolvePiExtensionPath("compaction-safeguard"),
+          ...(pruning.additionalExtensionPaths ?? []),
+        ];
 
         const { builtInTools, customTools } = splitSdkTools({
           tools,
@@ -1340,7 +1344,10 @@ export async function runEmbeddedPiAgent(params: {
             modelId,
             model,
           });
-          const additionalExtensionPaths = pruning.additionalExtensionPaths;
+          const additionalExtensionPaths = [
+            resolvePiExtensionPath("compaction-safeguard"),
+            ...(pruning.additionalExtensionPaths ?? []),
+          ];
 
           const { builtInTools, customTools } = splitSdkTools({
             tools,
